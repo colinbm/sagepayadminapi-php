@@ -1,0 +1,11 @@
+SagePayAdminApi
+
+Provides an easy way to access the Admin API.  You can use any command specified at 
+https://www.sagepay.com/sites/default/files/pdf/brochures/ReportingAndAdminAPIProtocol_1_02_0.pdf
+as a method.  Pass an array of elements to send, as detailed in the document.
+
+Usage example:
+
+$adminapi = new SagePayAdminApi('vendor', 'username', 'password');
+$transaction = $adminapi->getTransactionDetail(array('vendortxcode' => '12345678'));
+echo "Third Man Status: {$transaction->t3maction} ({$transaction->t3mscore})\n";
