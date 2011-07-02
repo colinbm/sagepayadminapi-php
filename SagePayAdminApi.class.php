@@ -10,6 +10,7 @@ class SagePayAdminApi {
 	private $password;
 	private $xml;
 	private $url;
+	private $sslverify;
 	
 	public $curlTimeout = 90;
 	
