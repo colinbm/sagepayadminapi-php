@@ -32,9 +32,9 @@ class SagePayAdminApi {
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($ch, CURLOPT_TIMEOUT, $this->curlTimeout);
 		if (!$this->sslverify) curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-		$t3mresponse = curl_exec($ch);
+		$response = curl_exec($ch);
 		curl_close($ch);
-		return new SimpleXMLElement($t3mresponse);
+		return new SimpleXMLElement($response);
 	}
 	
 	private function xmlise($command, $elements) {
