@@ -56,8 +56,10 @@ class SagePayAdminApi {
 	{
 		$return = "<{$key}>";
 		if (is_array($value)){
-		    foreach ($value as $k => $v) {
-		        $return .= $this->recursiveKeyValue($k, $v);
+		    $newkey = $value['key'];
+		    unset($value['key']);
+		    foreach ($value as $v) {
+		        $return .= $this->recursiveKeyValue($newkey, $v);
 		    }
 		} else {
 		    $return .= $value;
