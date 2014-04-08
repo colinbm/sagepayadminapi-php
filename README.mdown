@@ -18,7 +18,7 @@ Get Visa and MasterCard refunds from March 2014
 ```php
 $adminapi = new SagePayAdminApi('vendor', 'username', 'password');
 
-//SagePay will only return 50 rows at a time so loop until we have them all.
+// SagePay will only return 50 rows at a time so loop until we have them all.
 do {
 	$list = $adminapi->getTransactionList(array(
 		'startdate'      => '01/03/2014 00:00:00',
@@ -34,6 +34,8 @@ do {
 			)
 		),
 	) );
+
+	// Check response is OK
 	if ( '0000' != $list->errorcode ) {
 		die( $list->errorcode . ' : ' . $list->error );
 	}
