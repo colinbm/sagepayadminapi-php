@@ -4,10 +4,44 @@ SagePay Admin API
 Provides an easy way to access the Admin API.  You can use any command specified in the [Reporting and Admin API documentation](https://www.sagepay.com/sites/default/files/pdf/brochures/ReportingAndAdminAPIProtocol_1_02_0.pdf)
 as a method.  Pass an array of elements to send, as detailed in the document.
 
-Usage example:
+Examples
+--------
+Get a single transaction
 
 ```php
 $adminapi = new SagePayAdminApi('vendor', 'username', 'password');
 $transaction = $adminapi->getTransactionDetail(array('vendortxcode' => '12345678'));
 echo "Third Man Status: {$transaction->t3maction} ({$transaction->t3mscore})\n";
+```
+
+Get Visa and MasterCard refunds from March 2014
+```php
+$adminapi = new SagePayAdminApi('vendor', 'username', 'password');
+
+//SagePay will only return 50 rows at a time so loop until we have them all.
+do {
+	$list = $adminapi->getTransactionList(array(
+		'startdate'      => '01/03/2014 00:00:00',
+		'enddate'        => '01/04/2014 00:00:00',
+		'startrow'       => $end_row + 1,
+		'txtypes'        => array(
+			'txtype' => 'REFUND',
+		),
+		'paymentsystems' => array(
+			'paymentsystem' => array(
+				'MC',
+				'Visa',
+			)
+		),
+	) );
+	if ( '0000' != $list->errorcode ) {
+		die( $list->errorcode . ' : ' . $list->error );
+	}
+	$total_rows = (int) $list->transactions->totalrows;
+	$end_row = (int) $list->transactions->endrow;
+
+	foreach ( $list->transactions->transaction as $transaction ) {
+		var_dump( $transaction );
+	}
+} while ( $end_row < $total_rows );
 ```
