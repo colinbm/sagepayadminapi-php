@@ -52,17 +52,14 @@ class SagePayAdminApi {
 		return $this->xml;
 	}
 
-	public function recursiveKeyValue($key, $value)
-	{
+	public function recursiveKeyValue($key, $value) {
 		$return = "<{$key}>";
 		if (is_array($value)){
-		    $newkey = $value['key'];
-		    unset($value['key']);
-		    foreach ($value as $v) {
-		        $return .= $this->recursiveKeyValue($newkey, $v);
-		    }
+			foreach ($value as $sub_key => $sub_value) {
+				$return .= $this->recursiveKeyValue($sub_key, $sub_value);
+			}
 		} else {
-		    $return .= $value;
+			$return .= $value;
 		}
 		$return .= "</{$key}>";
 		return $return;
