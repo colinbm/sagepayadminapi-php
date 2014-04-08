@@ -55,13 +55,27 @@ class SagePayAdminApi {
 	public function recursiveKeyValue($key, $value) {
 		$return = "<{$key}>";
 		if (is_array($value)){
-			foreach ($value as $sub_key => $sub_value) {
-				$return .= $this->recursiveKeyValue($sub_key, $sub_value);
+			if ($this->is_assoc($value)) {
+				foreach ($value as $sub_key => $sub_value) {
+					$return .= $this->recursiveKeyValue($sub_key, $sub_value);
+				}
+			} else {
+				$return = '';
+				foreach ($value as $sub_value) {
+					$return .= $this->recursiveKeyValue($key, $sub_value);
+				}
+				return $return;
 			}
 		} else {
 			$return .= $value;
 		}
 		$return .= "</{$key}>";
 		return $return;
+	}
+
+	// Checks if array is associative
+	private function is_assoc($a) {
+		$a = array_keys($a);
+		return ($a !== array_keys($a));
 	}
 }
