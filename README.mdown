@@ -7,7 +7,6 @@ as a method.  Pass an array of elements to send, as detailed in the document.
 Usage example:
 
 ```php
-<?php
 $adminapi = new SagePayAdminApi('vendor', 'username', 'password');
 $transaction = $adminapi->getTransactionDetail(array('vendortxcode' => '12345678'));
 echo "Third Man Status: {$transaction->t3maction} ({$transaction->t3mscore})\n";
