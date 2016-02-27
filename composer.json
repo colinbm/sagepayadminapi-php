@@ -1,0 +1,14 @@
+{
+    "name": "colinbm/sagepayadminapi-php",
+    "type": "script",
+    "license": "OSL-3.0",
+    "homepage": "https://github.com/colinbm/sagepayadminapi-php",
+    "description": "",
+    "authors": [
+	{
+	    "name": "Colin Burn-Murdoch",
+	    "email": "info@logicnow.com"
+	}
+    ]
+}
+
